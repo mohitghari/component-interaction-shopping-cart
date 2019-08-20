@@ -1,59 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartProductModel } from '../product-model';
+import { ManageCartService } from '../manage-cart.service';
 
 @Component({
   selector: 'app-cart-list',
   templateUrl: './cart-list.component.html',
   styleUrls: ['./cart-list.component.css']
 })
-export class CartListComponent {
+export class CartListComponent implements OnInit {
 
-  cartProducts:CartProductModel[]=[];
-  producttotal: number[] = [];
-  overalltotal=0;
-  addProductToCart(cartProduct:CartProductModel){
-    
-    console.log("Adding product to cart (CartList)", cartProduct);
+  cartProducts: CartProductModel[] = [];
+  overalltotal = 0;
 
-    let existingProduct = this.cartProducts.find(data => data.id == cartProduct.id);
-    if(existingProduct){
-      existingProduct.quantity++;
-      console.log(existingProduct);
-    }
-    else
-    {
-      cartProduct.quantity = 1;
-      this.cartProducts.push(cartProduct);
-    }
-  }
+  constructor(private manageCart: ManageCartService) { }
 
-  removeProduct(product:CartProductModel,index:number){
-    this.cartProducts.splice(index,1);
-    this.overalltotal = this.overalltotal - (product.quantity * product.price);
-   
-   
-    
-  }
-
-  total(){
-        for (let i = 0; i < this.cartProducts.length; i++) {
-          this.producttotal[i] = this.cartProducts[i].quantity * this.cartProducts[i].price
-
+  ngOnInit() {
+    this.manageCart.getCartProducts()
+      .subscribe(
+        data => {
+          this.cartProducts = data;
         }
-        let sum: number = 0;
-        for (let i = 0; i < this.producttotal.length; i++) {
-          sum = sum + this.producttotal[i];
-        }
-        this.overalltotal = sum;
+      );
   }
-  emptyCart(){
-    this.cartProducts = [];
-    this.producttotal = [];
-    this.overalltotal = 0;
-    
+  removeProduct(product: CartProductModel) {
+    this.manageCart.removeProduct(product);
   }
-
- 
-  
-
 }

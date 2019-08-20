@@ -1,7 +1,8 @@
-
 <div>
-        <img src="{{product.image_url}}" height="100px" width="100px"> 
-        <h3><b>Name:</b>{{product.name}}</h3>   
+        <div style="height: 100px; width:100px; margin: auto;">
+                <img src="{{product.image_url}}" uk-img>
+        </div>
+        <h3><b>Name:</b>{{product.name}}</h3>
         <h3><b>Price:</b>{{product.price}}</h3>
-        <button (click)="addProductToCart(product)">Add to cart</button>
+        <button (click)="addProductToCart(product)" class="uk-button uk-button-primary">Add to cart</button>
 </div>

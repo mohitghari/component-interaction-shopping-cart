@@ -10,18 +10,12 @@ import { ManageCartService } from '../manage-cart.service';
 export class ProductListItemComponent implements OnInit {
 
   @Input() product: ProductModel;
-  @Output() addToCartProduct = new EventEmitter<any>();
-  constructor(private manageCart:ManageCartService) { }
+  constructor(private manageCart: ManageCartService) { }
 
   ngOnInit() {
   }
 
- addProductToCart(product:ProductModel){
-    //alert("hello");
-    //this.manageCart.addProduct(product);
-   // console.log(product);
-   this.addToCartProduct.emit(product);
-   
-
+  addProductToCart(product: ProductModel) {
+    this.manageCart.addProduct(product);
   }
 }

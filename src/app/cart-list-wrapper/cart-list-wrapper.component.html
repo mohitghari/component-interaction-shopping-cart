@@ -1,11 +1,12 @@
-<p>cart-list-wrapper works!</p>
-<div>
-    <h3 style="text-align: center;"> Your Cart</h3>
-</div>
-
 <app-cart-list></app-cart-list>
-<div>
-    <button style="float: left;">Buy</button>
-    <button style="float: right" (click)="emptyCart()">Clear</button>
+<div *ngIf="overallTotal">
+    <div>
+        <h3><b>Total bill:</b>{{overallTotal}}</h3>
+    </div>
+
+    <button style="float: left;" class="uk-button uk-button-secondary uk-button-small">Buy</button>
+    <button style="float: right" (click)="emptyCart()"
+        class="uk-button uk-button-secondary uk-button-small">Clear</button>
     <div style="clear: both;"></div>
+
 </div>

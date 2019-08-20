@@ -1,42 +1,40 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { CartProductModel, ProductModel } from './product-model';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManageCartService {
-  cartProducts:CartProductModel[]=[];
-  constructor() { }
-  loadComponent;
-  addProduct(product:ProductModel){
-    let existingProduct = this.cartProducts.find(data => data.id == product.id)
-    if(existingProduct)
-    {
-          existingProduct.quantity = existingProduct.quantity + 1
+
+  private _cartProducts: CartProductModel[] = [];
+  
+  private _cartProductSubject: BehaviorSubject<CartProductModel[]> = new BehaviorSubject([]);
+  cartProductSource$ = this._cartProductSubject.asObservable();
+
+  getCartProducts(): Observable<CartProductModel[]> { 
+    return this.cartProductSource$; 
+  }
+  addProduct(product: CartProductModel) {
+    let existingProduct = this._cartProducts.find(data => data.id == product.id)
+    if (existingProduct) {
+      existingProduct.quantity = existingProduct.quantity + 1
     }
-    else{
-      this.cartProducts.push({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        is_available: product.is_available,
-        image_url: product.image_url,
-        quantity: 1
-      });
-    } 
-    //console.log(this.cartProducts);
+    else {
+      product.quantity = 1;
+      this._cartProducts.push(product);
+    }
+    this._cartProductSubject.next(this._cartProducts);
   }
-
-  getCartProducts():Observable<any>{
-    return of(this.cartProducts)
+  removeProduct(productToRemove: CartProductModel) {
+    const index = this._cartProducts.findIndex(product => product.id == productToRemove.id);
+    if (index >= 0) {
+      this._cartProducts.splice(index, 1);
+      this._cartProductSubject.next(this._cartProducts);
+    }
   }
-
-  getCartProductsListLength():Observable<any>{
-    return of(this.cartProducts.length);
-  }
-  removeProduct(product:CartProductModel)
-  {
-    this.cartProducts.splice(product.id,1)
+  emptyCartList() {
+    this._cartProducts = [];  
+    this._cartProductSubject.next(this._cartProducts);
   }
 }

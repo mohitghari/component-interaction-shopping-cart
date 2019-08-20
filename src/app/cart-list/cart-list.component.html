@@ -1,19 +1,28 @@
-<p>cart-list works!</p>
+<!--
+<li *ngFor="let product of cartProducts; let i = index">
+        <p>Name:{{product.name}}</p>
+        <p>Price:{{product.price}}</p>
+        <p>Quantity:{{product.quantity}}</p> 
+        <p>Total:{{product.price * product.quantity }}</p>
+        <button (click)="removeProduct(product,i)">Remove</button>
+</li>-->
 
-<li *ngFor="let product of cartProducts; let i = index" >
-    <p>Name:{{product.name}}</p>
-    <p>Price:{{product.price}} </p>
-    <p>Quantity:{{product.quantity}}</p>
-    <p>Total:{{product.price * product.quantity }}</p>
-    <button (click)="removeProduct(product,i)">Remove</button>
-</li>
-<div *ngIf="overalltotal && cartProducts.length >= 1">
-        <h3><b>Total bill:</b>{{overalltotal}}</h3>
+<div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-1@s uk-margin"
+        *ngFor="let product of cartProducts; let i = index" uk-grid>
+        <div>
+                <div class="uk-card-body">
+                        <h3 class="uk-card-title uk-text-center">{{product.name}}</h3>
+                        <p><b>Price:</b>{{product.price}}</p>
+                        <p><b>Quantity:</b>{{product.quantity}}</p>
+                        <p><b>Total:</b>{{product.price * product.quantity }}</p>
+                        <button (click)="removeProduct(product,i)" uk-icon="trash"></button>
+                </div>
+        </div>
 </div>
+
+
+
 <div *ngIf="cartProducts.length == 0" style="text-align: center">
         <img src="https://as2.ftcdn.net/jpg/02/68/72/93/500_F_268729337_iwKWxKPF5JGAnG82GwnfFUycWHHaY3v6.jpg"
-        height="250px" width="auto" >
-</div> 
-<!--
-<app-cart-list-item *ngFor="let product of cartProduct" [product]="product">
-</app-cart-list-item>-->
+                height="250px" width="auto">
+</div>

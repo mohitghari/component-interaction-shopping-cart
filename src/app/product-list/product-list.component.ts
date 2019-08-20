@@ -12,20 +12,20 @@ export class ProductListComponent implements OnInit {
   productList:ProductModel[];
   constructor(private getProducts:GetProductsService) { }
   
-  @Output() addToCartProduct = new EventEmitter<any>();
+ // @Output() addToCartProduct = new EventEmitter<any>();
   
   ngOnInit() {
     this.getProducts.getAllProducts().subscribe(
       data=>{
         this.productList = data.products;
-        console.log(this.productList);
       }
     );
   }
+  /*
   getProductFromItemList(product:CartProductModel)
   {
-     // console.log(product);
+      // console.log(product); 
       this.addToCartProduct.emit(product);
-  }
+  }*/
 
 }

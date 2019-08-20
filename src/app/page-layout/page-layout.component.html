@@ -1,5 +1,5 @@
-<p>page-layout works!</p>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>ComponentIntercationShoppingCart</title>
@@ -7,27 +7,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
+  <div uk-grid>
+    <div class="uk-width-3-4@l uk-width-3-4@m uk-width-1-1@s">
+      <h2 class="uk-heading-line uk-text-left"><span>Product's Cart</span></h2>
+      <app-product-list></app-product-list>
+    </div>
 
-        <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-8">
-                      <h2 style="background-color:yellow;">
-                          Shopping Cart
-                      </h2>
-                      <app-product-list
-                      (addToCartProduct)="cartListWrapper.addProductToCart($event)"></app-product-list>  
-                    </div>
+    <div class="uk-width-1-4@l uk-width-1-4@m uk-width-1-1@s">
+      <h2 class="uk-heading-line uk-text-left"><span>Shopping Cart</span></h2>
+      <app-cart-list-wrapper> </app-cart-list-wrapper>
+    </div>
+  </div>
 
-                    <div class="col-sm-4">
-                      <h2 style="background-color:pink;">
-                          Product cart
-                      </h2>
-                    </div>
-                    <app-cart-list-wrapper #cartListWrapper> </app-cart-list-wrapper>
-                </div>
-        </div>
+</body>
 
-    </body>
-    </html>
-    
+</html>
